@@ -209,6 +209,7 @@ get_packages ()
         cd /usr/src/asterisk
         #Added AST-16 By Manish
         wget -c http://download.vicidial.com/required-apps/asterisk-16.30.1-vici.tar.gz
+		#wget -c http://download.vicidial.com/required-apps/asterisk-13.29.2-vici.tar.gz
 		wget -c https://downloads.asterisk.org/pub/telephony/dahdi-linux-complete/dahdi-linux-complete-3.2.0+3.2.0.tar.gz
 		wget -c http://download.vicidial.com/required-apps/asterisk-perl-0.08.tar.gz
 		wget -c https://downloads.asterisk.org/pub/telephony/libpri/libpri-1.6.1.tar.gz
@@ -334,7 +335,8 @@ install_asterisk ()
 
 		get_packages
 		apt-get install -y autoconf libtool perl libpri-dev libtonezone-dev libproc-processtable-perl bison openssl libeditline0 libeditline-dev libedit-dev make libedit2 libncurses5 libncurses5-dev unzip zip libnewt-dev libnewt0.52 gcc-10 g++-10 libreadline5 libterm-readline-perl-perl readline-common libi18n-charset-perl libunicode-map-perl libunicode-map8-perl libunicode-maputf8-perl libreadline5 libterm-readline-perl-perl readline-common libole-storage-lite-perl libspreadsheet-parseexcel-perl libspreadsheet-writeexcel-perl libjcode-perl libjcode-pm-perl  libproc-pid-file-perl libio-stringy-perl libnet-telnet-perl libnet-server-perl iftop lame libploticus0-dev libsox-fmt-all mpg123 ntp openssh-server ploticus screen sipsak sox rdate ttyload git uuid uuid-dev libdata-uuid-libuuid-perl libsqlite3-dev sqlite3 libxml2-dev libjansson-dev libswitch-perl libsrtp* libssl-dev
-	
+	        #ip_relay fix Added by Manish 26-05-2024
+                apt-get install libc6-i386
         cd /usr/src/asterisk
 
         tar zxf asterisk-perl-0.08.tar.gz		
@@ -385,9 +387,10 @@ install_asterisk ()
         make clean M=$PWD
         make distclean M=$PWD
 		contrib/scripts/install_prereq install
-#        AST-16 --with-pjproject-bundled --with-jansson-bundled
+		#AST-16 --with-pjproject-bundled --with-jansson-bundled Added By Manish
 		./configure --libdir=/usr/lib --with-gsm=internal --enable-opus --enable-srtp --with-ssl --enable-asteriskssl --with-pjproject-bundled --with-jansson-bundled
-        #make menuselect
+        #./configure --with-gsm=internal --with-ssl --enable-asteriskssl --with-pjproject-bundled && make menuselect
+		#make menuselect
 		make menuselect/menuselect menuselect-tree menuselect.makeopts
 		#enable app_meetme
 		menuselect/menuselect --enable app_meetme menuselect.makeopts
