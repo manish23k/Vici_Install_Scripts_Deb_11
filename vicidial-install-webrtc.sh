@@ -24,7 +24,7 @@ wget -O /etc/asterisk/http.conf https://raw.githubusercontent.com/jaganthoutam/v
 sed -i s/DOMAINNAME/"$DOMAINNAME"/g /etc/asterisk/http.conf
 
 echo "Change sip.conf in Asterisk"
-wget -O /etc/asterisk/sip.conf https://raw.githubusercontent.com/jaganthoutam/vicidial-install-scripts/main/asterisk-sip.conf
+#wget -O /etc/asterisk/sip.conf https://raw.githubusercontent.com/jaganthoutam/vicidial-install-scripts/main/asterisk-sip.conf
 sed -i s/DOMAINNAME/"$DOMAINNAME"/g /etc/asterisk/sip.conf
 
 echo "Reloading Asterisk"
